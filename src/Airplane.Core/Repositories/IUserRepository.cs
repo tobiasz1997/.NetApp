@@ -10,6 +10,6 @@ namespace Airplane.Core.Repositories
          Task<User> GetAsync(string email); //unikalna nazwa
          Task AddAsync (User user);
          Task UpdateAsync(User user);
-         Task Deleteasync(User user);
+         Task DeleteAsync(User user);
     }
 }

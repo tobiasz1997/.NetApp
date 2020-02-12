@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Airplane.Core.Repositories;
+using Airplane.Infrastructure.Mappers;
+using Airplane.Infrastructure.Repositories;
+using Airplane.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +30,12 @@ namespace Airplane.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //services.AddTransient() //tworzy za kazdym razem nowy obiekt
+            //implementacja/instancja pojedyncza per cale http; operacje api http; per request http, tworzony od nowa per request http
+            services.AddScoped<IPlaneRepository, PlaneRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPlaneService, PlaneService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
