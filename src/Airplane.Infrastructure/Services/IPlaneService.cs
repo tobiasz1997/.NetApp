@@ -7,8 +7,8 @@ namespace Airplane.Infrastructure.Services
 {
     public interface IPlaneService
     {
-        Task<PlaneDTO> GetAsync(Guid id);
-        Task<PlaneDTO> GetAsync(string brandname);
+        Task<PlaneDetailsDTO> GetAsync(Guid id);
+        Task<PlaneDetailsDTO> GetAsync(string brandname);
         Task<IEnumerable<PlaneDTO>> BrowseAsync(string brandname = null);
         Task CreateAsync(Guid id, string brandname, string flyingFrom,
                            string flyingTo, DateTime startFlight, DateTime endFlight);

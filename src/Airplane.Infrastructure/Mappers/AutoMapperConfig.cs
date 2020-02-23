@@ -11,6 +11,8 @@ namespace Airplane.Infrastructure.Mappers
              => new MapperConfiguration(cfg => {
                  cfg.CreateMap<Plane, PlaneDTO>()
                     .ForMember(x => x.TicketsCount, m => m.MapFrom(p => p.Tickets.Count()));
+                cfg.CreateMap<Plane, PlaneDetailsDTO>();
+                cfg.CreateMap<Ticket, TicketDTO>();
              }).CreateMapper();
     }
 }

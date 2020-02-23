@@ -12,6 +12,6 @@ namespace Airplane.Core.Repositories
          Task<IEnumerable<Plane>> BrowseAsync(string name = "");
          Task AddAsync (Plane plane);
          Task UpdateAsync(Plane plane);
-         Task Deleteasync(Plane plane);
+         Task DeleteAsync(Plane plane);
     }
 }

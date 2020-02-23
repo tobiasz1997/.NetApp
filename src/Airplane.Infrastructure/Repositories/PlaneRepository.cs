@@ -9,7 +9,11 @@ namespace Airplane.Infrastructure.Repositories
 {
     public class PlaneRepository : IPlaneRepository
     {
-        private static readonly ISet<Plane> _plane = new HashSet<Plane>();
+        private static readonly ISet<Plane> _plane = new HashSet<Plane>
+        {
+            new Plane(Guid.NewGuid(), "rajaner", "wroclaw", "kluczbork", DateTime.UtcNow.AddHours(4), DateTime.UtcNow.AddHours(8)),
+            new Plane(Guid.NewGuid(), "wizar", "opole", "byczyna", DateTime.UtcNow.AddHours(1), DateTime.UtcNow.AddHours(3)),
+        };
 
         public async Task<Plane> GetAsync(Guid id)
             => await Task.FromResult(_plane.SingleOrDefault(x => x.Id == id));
@@ -19,7 +23,7 @@ namespace Airplane.Infrastructure.Repositories
         public async Task<IEnumerable<Plane>> BrowseAsync(string name = "")
         {
             var plane = _plane.AsEnumerable();
-            if(!string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrWhiteSpace(name))
             {
                 plane = plane.Where(x => x.Brandname
                                         .ToLowerInvariant()
@@ -34,12 +38,12 @@ namespace Airplane.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
-        public async Task UpdateAsync(Plane plane) 
+        public async Task UpdateAsync(Plane plane)
             => await Task.CompletedTask;
 
-        public async Task Deleteasync(Plane plane)
+        public async Task DeleteAsync(Plane plane)
         {
-            _plane.Add(plane);
+            _plane.Remove(plane);
             await Task.CompletedTask;
         }
 
