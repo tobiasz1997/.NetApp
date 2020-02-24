@@ -17,5 +17,15 @@ namespace Airplane.Infrastructure.Extensions
 
             return plane;
         }
+        public static async Task<User> GetOrFailAsync(this IUserRepository repository, Guid id) {
+            var user = await repository.GetAsync(id);
+
+            if(user == null)
+            {
+                throw new Exception($"User with id: {id} is not exist");
+            }
+
+            return user;
+        }
     }
 }

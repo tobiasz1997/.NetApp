@@ -2,12 +2,14 @@ using System;
 using System.Threading.Tasks;
 using Airplane.Infrastructure.Commands.Events;
 using Airplane.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airplane.Api.Controllers
 {
     [Route("plane")]
-    public class PlaneController : Controller
+    [Authorize(Policy = "HasAdminRole")]
+    public class PlaneController : ApiControllerBase
     {
         private readonly IPlaneService _planeService;
 
@@ -17,6 +19,7 @@ namespace Airplane.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous] //nie dotyczy [Authorize]
         public async Task<IActionResult> Get(string brandname)
         {
             var planes = await _planeService.BrowseAsync(brandname);
@@ -25,6 +28,7 @@ namespace Airplane.Api.Controllers
         }
 
         [HttpGet("{planeId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(Guid planeId)
         {
             var plane = await _planeService.GetAsync(planeId);
